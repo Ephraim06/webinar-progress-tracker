@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webinar Statistics Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'remax-blue': '#0054A4',
+              'remax-dark-blue': '#1F4D8B',
+              'remax-light-gray': '#E6E6E6',
+              'remax-dark-gray': '#666666',
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body class="bg-remax-light-gray min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+      <header class="mb-8">
+        <h1 class="text-3xl font-bold text-remax-blue">
+          Webinar Statistics Tracker
+        </h1>
+        <p class="text-remax-dark-gray">
+          Track your training webinars and generate reports
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Input Form -->
+        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-1">
+          <h2 class="text-xl font-semibold text-remax-dark-blue mb-4">
+            Add New Webinar
+          </h2>
+          <form id="webinarForm" class="space-y-4">
+            <div>
+              <label class="block text-remax-dark-gray mb-1"
+                >Webinar Name</label
+              >
+              <input
+                type="text"
+                id="webinarName"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+
+            <div>
+              <label class="block text-remax-dark-gray mb-1">Date & Time</label>
+              <input
+                type="datetime-local"
+                id="webinarDateTime"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+
+            <div>
+              <label class="block text-remax-dark-gray mb-1"
+                >Duration (minutes)</label
+              >
+              <input
+                type="number"
+                id="webinarDuration"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+
+            <div>
+              <label class="block text-remax-dark-gray mb-1">Registrants</label>
+              <input
+                type="number"
+                id="webinarRegistrants"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+
+            <div>
+              <label class="block text-remax-dark-gray mb-1">Attendees</label>
+              <input
+                type="number"
+                id="webinarAttendees"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="w-full bg-remax-blue text-white py-2 px-4 rounded-md hover:bg-remax-dark-blue transition"
+            >
+              Save Webinar
+            </button>
+          </form>
+        </div>
+
+        <!-- Webinar List -->
+        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-remax-dark-blue">
+              Your Webinars
+            </h2>
+            <div class="flex space-x-2">
+              <select id="monthFilter" class="px-3 py-1 border rounded-md">
+                <option value="">All Months</option>
+              </select>
+              <button
+                id="generateReport"
+                class="bg-remax-blue text-white py-1 px-3 rounded-md hover:bg-remax-dark-blue transition"
+              >
+                Monthly Report
+              </button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-remax-light-gray">
+                <tr>
+                  <th class="px-4 py-2 text-left">Name</th>
+                  <th class="px-4 py-2 text-left">Date</th>
+                  <th class="px-4 py-2 text-left">Duration</th>
+                  <th class="px-4 py-2 text-left">Registrants</th>
+                  <th class="px-4 py-2 text-left">Attendees</th>
+                  <th class="px-4 py-2 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="webinarList" class="divide-y divide-gray-200">
+                <!-- Webinars will be listed here -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Statistics Summary -->
+          <div class="mt-6 p-4 bg-remax-light-gray rounded-md">
+            <h3 class="font-semibold text-remax-dark-blue mb-2">
+              Monthly Summary
+            </h3>
+            <div
+              id="summaryStats"
+              class="grid grid-cols-2 md:grid-cols-4 gap-4"
+            >
+              <!-- Stats will appear here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div
+      id="reportModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold text-remax-dark-blue">
+            Monthly Report
+          </h2>
+          <button
+            id="closeModal"
+            class="text-remax-dark-gray hover:text-remax-blue"
+          >
+            ✕
+          </button>
+        </div>
+        <div id="reportContent">
+          <!-- Report content will be generated here -->
+        </div>
+        <div class="mt-4 flex justify-end space-x-2">
+          <button
+            id="printReport"
+            class="bg-remax-blue text-white py-1 px-3 rounded-md"
+          >
+            Print Report
+          </button>
+          <button
+            id="exportReport"
+            class="bg-remax-dark-blue text-white py-1 px-3 rounded-md"
+          >
+            Export to CSV
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const supabaseUrl = 'https://xdrgsibciezpaxxsmatn.supabase.co';
+        const supabaseKey =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkcmdzaWJjaWV6cGF4eHNtYXRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0NDI1NzEsImV4cCI6MjA2NzAxODU3MX0.BV4BNIDLAMxCQRbXjll-VOA0dZNCqTN8-Mj9gfrqIfo';
+        const supabaseClient = window.supabase.createClient(
+          supabaseUrl,
+          supabaseKey
+        );
+
+        document
+          .getElementById('webinarForm')
+          .addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const webinar = {
+              name: document.getElementById('webinarName').value,
+              date_time: document.getElementById('webinarDateTime').value,
+              duration: parseInt(
+                document.getElementById('webinarDuration').value
+              ),
+              registrants: parseInt(
+                document.getElementById('webinarRegistrants').value
+              ),
+              attendees: parseInt(
+                document.getElementById('webinarAttendees').value
+              ),
+            };
+
+            try {
+              const { data, error } = await supabaseClient
+                .from('webinars')
+                .insert([webinar])
+                .select();
+
+              if (error) throw error;
+
+              alert('Webinar saved successfully!');
+              document.getElementById('webinarForm').reset();
+            } catch (error) {
+              console.error('Error saving webinar:', error);
+              alert('Error saving webinar: ' + error.message);
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
