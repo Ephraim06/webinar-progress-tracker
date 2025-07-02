@@ -19,9 +19,6 @@
         },
       };
     </script>
-    <link rel="stylesheet" href="styles.css" />
-    <!-- SUPABASE -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
   <body class="bg-remax-light-gray min-h-screen">
     <div class="container mx-auto px-4 py-8">
@@ -41,60 +38,47 @@
             Add New Webinar
           </h2>
           <form id="webinarForm" class="space-y-4">
-            <div>
-              <label class="block text-remax-dark-gray mb-1"
-                >Webinar Name</label
-              >
-              <input
-                type="text"
-                id="webinarName"
-                required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
-            <div>
-              <label class="block text-remax-dark-gray mb-1">Date & Time</label>
-              <input
-                type="datetime-local"
-                id="webinarDateTime"
-                required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
-            <div>
-              <label class="block text-remax-dark-gray mb-1"
-                >Duration (minutes)</label
-              >
-              <input
-                type="number"
-                id="webinarDuration"
-                required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
-            <div>
-              <label class="block text-remax-dark-gray mb-1">Registrants</label>
-              <input
-                type="number"
-                id="webinarRegistrants"
-                required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
-            <div>
-              <label class="block text-remax-dark-gray mb-1">Attendees</label>
-              <input
-                type="number"
-                id="webinarAttendees"
-                required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-
+            <input
+              type="text"
+              id="webinarName"
+              placeholder="Webinar Name"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+            />
+            <input
+              type="datetime-local"
+              id="webinarDateTime"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+            />
+            <input
+              type="number"
+              id="webinarDuration"
+              placeholder="Duration (min)"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+            />
+            <input
+              type="number"
+              id="webinarRegistrants"
+              placeholder="Registrants"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+            />
+            <input
+              type="number"
+              id="webinarAttendees"
+              placeholder="Attendees"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+            />
+            <input
+              type="text"
+              id="hostName"
+              placeholder="Webinar Host"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+            />
             <button
               type="submit"
               class="w-full bg-remax-blue text-white py-2 px-4 rounded-md hover:bg-remax-dark-blue transition"
@@ -104,9 +88,19 @@
           </form>
         </div>
 
-        <!-- Webinar List -->
-        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2">
-          <div class="flex justify-between items-center mb-4">
+        <!-- Webinar List & Summary -->
+        <div class="bg-white mb-5 p-6 rounded-lg shadow-md md:col-span-2">
+          <!-- Monthly Summary -->
+          <div class="mt-6 p-4 bg-remax-light-gray rounded-md">
+            <h3 class="font-semibold text-remax-dark-blue mb-2">
+              Monthly Summary
+            </h3>
+            <div
+              id="summaryStats"
+              class="grid grid-cols-2 md:grid-cols-4 gap-4"
+            ></div>
+          </div>
+          <div class="flex mt-5 justify-between items-center mb-4">
             <h2 class="text-xl font-semibold text-remax-dark-blue">
               Your Webinars
             </h2>
@@ -123,36 +117,22 @@
             </div>
           </div>
 
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-remax-light-gray">
-                <tr>
-                  <th class="px-4 py-2 text-left">Name</th>
-                  <th class="px-4 py-2 text-left">Date</th>
-                  <th class="px-4 py-2 text-left">Duration</th>
-                  <th class="px-4 py-2 text-left">Registrants</th>
-                  <th class="px-4 py-2 text-left">Attendees</th>
-                  <th class="px-4 py-2 text-left">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="webinarList" class="divide-y divide-gray-200">
-                <!-- Webinars will be listed here -->
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Statistics Summary -->
-          <div class="mt-6 p-4 bg-remax-light-gray rounded-md">
-            <h3 class="font-semibold text-remax-dark-blue mb-2">
-              Monthly Summary
-            </h3>
-            <div
-              id="summaryStats"
-              class="grid grid-cols-2 md:grid-cols-4 gap-4"
-            >
-              <!-- Stats will appear here -->
-            </div>
-          </div>
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-remax-light-gray">
+              <tr>
+                <th class="px-4 py-2 text-left">Name</th>
+                <th class="px-4 py-2 text-left">Date</th>
+                <th class="px-4 py-2 text-left">Duration</th>
+                <th class="px-4 py-2 text-left">Registrants</th>
+                <th class="px-4 py-2 text-left">Attendees</th>
+                <th class="px-4 py-2 text-left">Host</th>
+                <th class="px-4 py-2 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="webinarList" class="divide-y divide-gray-200">
+              <!-- Webinars will be listed here -->
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -160,7 +140,7 @@
     <!-- Report Modal -->
     <div
       id="reportModal"
-      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50"
     >
       <div
         class="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
@@ -176,9 +156,7 @@
             ✕
           </button>
         </div>
-        <div id="reportContent">
-          <!-- Report content will be generated here -->
-        </div>
+        <div id="reportContent"></div>
         <div class="mt-4 flex justify-end space-x-2">
           <button
             id="printReport"
@@ -196,50 +174,214 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
-        const supabaseUrl = 'https://xdrgsibciezpaxxsmatn.supabase.co';
-        const supabaseKey =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkcmdzaWJjaWV6cGF4eHNtYXRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0NDI1NzEsImV4cCI6MjA2NzAxODU3MX0.BV4BNIDLAMxCQRbXjll-VOA0dZNCqTN8-Mj9gfrqIfo';
-        const supabaseClient = window.supabase.createClient(
-          supabaseUrl,
-          supabaseKey
+        const supabase = window.supabase.createClient(
+          'https://xdrgsibciezpaxxsmatn.supabase.co',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkcmdzaWJjaWV6cGF4eHNtYXRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0NDI1NzEsImV4cCI6MjA2NzAxODU3MX0.BV4BNIDLAMxCQRbXjll-VOA0dZNCqTN8-Mj9gfrqIfo'
         );
 
-        document
-          .getElementById('webinarForm')
-          .addEventListener('submit', async (e) => {
-            e.preventDefault();
+        const webinarForm = document.getElementById('webinarForm');
+        const webinarList = document.getElementById('webinarList');
+        const summaryStats = document.getElementById('summaryStats');
+        const monthFilter = document.getElementById('monthFilter');
+        const generateReport = document.getElementById('generateReport');
+        const reportModal = document.getElementById('reportModal');
+        const closeModal = document.getElementById('closeModal');
+        const reportContent = document.getElementById('reportContent');
+        const printReport = document.getElementById('printReport');
+        const exportReport = document.getElementById('exportReport');
+        let webinars = [];
 
-            const webinar = {
-              name: document.getElementById('webinarName').value,
-              date_time: document.getElementById('webinarDateTime').value,
-              duration: parseInt(
-                document.getElementById('webinarDuration').value
-              ),
-              registrants: parseInt(
-                document.getElementById('webinarRegistrants').value
-              ),
-              attendees: parseInt(
-                document.getElementById('webinarAttendees').value
-              ),
-            };
+        // Load webinars and initialize
+        async function init() {
+          await loadWebinars();
+          populateMonthFilter();
+          updateSummaryStats();
+        }
 
-            try {
-              const { data, error } = await supabaseClient
-                .from('webinars')
-                .insert([webinar])
-                .select();
+        async function loadWebinars() {
+          const { data, error } = await supabase
+            .from('webinars')
+            .select('*')
+            .order('date_time', { ascending: false });
+          if (error) return console.error(error);
 
-              if (error) throw error;
+          webinars = data;
+          renderWebinarList();
+          updateSummaryStats();
+        }
 
-              alert('Webinar saved successfully!');
-              document.getElementById('webinarForm').reset();
-            } catch (error) {
-              console.error('Error saving webinar:', error);
-              alert('Error saving webinar: ' + error.message);
-            }
+        function renderWebinarList(month = '') {
+          webinarList.innerHTML = '';
+          const filtered = month
+            ? webinars.filter(
+                (w) =>
+                  new Date(w.date_time).toLocaleString('default', {
+                    month: 'long',
+                    year: 'numeric',
+                  }) === month
+              )
+            : webinars;
+
+          if (filtered.length === 0) {
+            webinarList.innerHTML = `<tr><td colspan="6" class="text-center py-2 text-remax-dark-gray">No webinars found</td></tr>`;
+            return;
+          }
+
+          filtered.forEach((w) => {
+            const date = new Date(w.date_time);
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td class="px-4 py-2">${w.name}</td>
+            <td class="px-4 py-2">${date.toLocaleDateString()} ${date.toLocaleTimeString(
+              [],
+              { hour: '2-digit', minute: '2-digit' }
+            )}</td>
+            <td class="px-4 py-2">${w.duration} min</td>
+            <td class="px-4 py-2">${w.registrants}</td>
+            <td class="px-4 py-2">${w.attendees}</td>
+            <td class="px-4 py-2"><button onclick="deleteWebinar('${
+              w.id
+            }')" class="text-red-500 hover:text-red-700">Delete</button></td>`;
+            webinarList.appendChild(row);
           });
+        }
+
+        function populateMonthFilter() {
+          const months = [
+            ...new Set(
+              webinars.map((w) =>
+                new Date(w.date_time).toLocaleString('default', {
+                  month: 'long',
+                  year: 'numeric',
+                })
+              )
+            ),
+          ].sort();
+          monthFilter.innerHTML = '<option value="">All Months</option>';
+          months.forEach((m) => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.textContent = m;
+            monthFilter.appendChild(opt);
+          });
+        }
+
+        function updateSummaryStats(month = '') {
+          const filtered = month
+            ? webinars.filter(
+                (w) =>
+                  new Date(w.date_time).toLocaleString('default', {
+                    month: 'long',
+                    year: 'numeric',
+                  }) === month
+              )
+            : webinars;
+
+          const totalWebinars = filtered.length;
+          const totalDuration = filtered.reduce(
+            (sum, w) => sum + w.duration,
+            0
+          );
+          const totalAttendees = filtered.reduce(
+            (sum, w) => sum + w.attendees,
+            0
+          );
+          const totalRegistrants = filtered.reduce(
+            (sum, w) => sum + w.registrants,
+            0
+          );
+          const attendanceRate = totalRegistrants
+            ? Math.round((totalAttendees / totalRegistrants) * 100)
+            : 0;
+
+          summaryStats.innerHTML = `
+          <div class="bg-white p-3 rounded-md shadow"><h4>Total Webinars</h4><p class="text-2xl font-bold">${totalWebinars}</p></div>
+          <div class="bg-white p-3 rounded-md shadow"><h4>Total Duration</h4><p class="text-2xl font-bold">${totalDuration} min</p></div>
+          <div class="bg-white p-3 rounded-md shadow"><h4>Total Attendees</h4><p class="text-2xl font-bold">${totalAttendees}</p></div>
+          <div class="bg-white p-3 rounded-md shadow"><h4>Attendance Rate</h4><p class="text-2xl font-bold">${attendanceRate}%</p></div>
+        `;
+        }
+
+        webinarForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const webinar = {
+            name: webinarForm.webinarName.value,
+            date_time: webinarForm.webinarDateTime.value,
+            duration: parseInt(webinarForm.webinarDuration.value),
+            registrants: parseInt(webinarForm.webinarRegistrants.value),
+            host: webinarForm.hostName.value,
+            attendees: parseInt(webinarForm.webinarAttendees.value),
+          };
+          const { error } = await supabase.from('webinars').insert([webinar]);
+          if (error) return alert('Error: ' + error.message);
+          webinarForm.reset();
+          init();
+        });
+
+        window.deleteWebinar = async (id) => {
+          await supabase.from('webinars').delete().eq('id', id);
+          init();
+        };
+
+        monthFilter.addEventListener('change', () => {
+          const month = monthFilter.value;
+          renderWebinarList(month);
+          updateSummaryStats(month);
+        });
+
+        generateReport.addEventListener('click', () => {
+          const month = monthFilter.value;
+          if (!month) return alert('Please select a month');
+          const filtered = webinars.filter(
+            (w) =>
+              new Date(w.date_time).toLocaleString('default', {
+                month: 'long',
+                year: 'numeric',
+              }) === month
+          );
+          if (!filtered.length) return alert('No data for this month');
+          let html = `<h3 class="text-xl font-semibold text-remax-dark-blue mb-2">${month} Report</h3>`;
+          filtered.forEach((w) => {
+            html += `<p>${w.name}: ${w.attendees} attendees (${w.duration} min)</p>`;
+          });
+          reportContent.innerHTML = html;
+          reportModal.classList.remove('hidden');
+        });
+
+        closeModal.addEventListener('click', () => {
+          reportModal.classList.add('hidden');
+        });
+
+        printReport.addEventListener('click', () => window.print());
+
+        exportReport.addEventListener('click', () => {
+          const rows = [
+            ['Name', 'Date', 'Duration', 'Registrants', 'Attendees'],
+          ];
+          webinars.forEach((w) => {
+            const date = new Date(w.date_time);
+            rows.push([
+              w.name,
+              date.toLocaleDateString(),
+              w.duration,
+              w.registrants,
+              w.attendees,
+            ]);
+          });
+          const csv = rows.map((r) => r.join(',')).join('\n');
+          const blob = new Blob([csv], { type: 'text/csv' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = 'webinars.csv';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+
+        init();
       });
     </script>
   </body>
