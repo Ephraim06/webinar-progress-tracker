@@ -1,87 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" href="https://hub.remax.co.za/images/icons/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://hub.remax.co.za/images/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://hub.remax.co.za/images/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://hub.remax.co.za/images/icons/favicon-16x16.png"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Webinar Statistics Tracker</title>
+    <title>RE/MAX Webinar Analytics Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              'remax-blue': '#0054A4',
-              'remax-dark-blue': '#1F4D8B',
-              'remax-light-gray': '#E6E6E6',
-              'remax-dark-gray': '#666666',
+              'remax-blue': '#003DA5',
+              'remax-red': '#DC1C2E',
+              'remax-hub-blue': '#1e355e',
+              'remax-collection-blue': '#0C2C53',
+              'remax-light-gray': '#F5F7FA',
+              'remax-dark-gray': '#4A5568',
+            },
+            fontFamily: {
+              sans: ['Montserrat', 'sans-serif'],
             },
           },
         },
       };
     </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Birthstone&family=Love+Light&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="bg-remax-light-gray min-h-screen">
+
+  <body class="bg-remax-light-gray min-h-screen font-sans">
     <div class="container mx-auto px-4 py-8">
-      <header class="mb-8">
-        <h1 class="text-3xl font-bold text-remax-blue">
-          Webinar Statistics Tracker
-        </h1>
-        <p class="text-remax-dark-gray">
-          Track your training webinars and generate reports
-        </p>
+      <!-- Header with RE/MAX branding -->
+      <header class="mb-8 flex items-center justify-between">
+        <div>
+          <div class="flex items-center space-x-4">
+            <img
+              src="https://www.remax.co.za/_next/image?url=%2Fremax_logo.png&w=256&q=75"
+              alt="RE/MAX Logo"
+              class="h-12"
+            />
+            <div>
+              <h1 class="text-3xl font-bold text-remax-blue">
+                Webinar Analytics Tracker
+              </h1>
+              <p class="text-remax-dark-gray">
+                Comprehensive webinar tracking and performance reporting
+              </p>
+            </div>
+          </div>
+        </div>
       </header>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <!-- Input Form -->
-        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-1">
-          <h2 class="text-xl font-semibold text-remax-dark-blue mb-4">
+        <div
+          class="bg-white p-6 rounded-lg shadow-md lg:col-span-1 border-t-4 border-remax-blue"
+        >
+          <h2
+            class="text-xl font-semibold text-remax-hub-blue mb-4 pb-2 border-b border-gray-200"
+          >
             Add New Webinar
           </h2>
           <form id="webinarForm" class="space-y-4">
-            <input
-              type="text"
-              id="webinarName"
-              placeholder="Webinar Name"
-              required
-              class="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-            <input
-              type="datetime-local"
-              id="webinarDateTime"
-              required
-              class="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-            <input
-              type="number"
-              id="webinarDuration"
-              placeholder="Duration (min)"
-              required
-              class="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-            <input
-              type="number"
-              id="webinarRegistrants"
-              placeholder="Registrants"
-              required
-              class="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-            <input
-              type="number"
-              id="webinarAttendees"
-              placeholder="Attendees"
-              required
-              class="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-            <input
-              type="text"
-              id="hostName"
-              placeholder="Webinar Host"
-              required
-              class="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
+            <div>
+              <label
+                for="webinarName"
+                class="block text-sm font-medium text-remax-dark-gray mb-1"
+                >Webinar Name</label
+              >
+              <input
+                type="text"
+                id="webinarName"
+                placeholder="Enter webinar name"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-remax-blue focus:border-transparent"
+              />
+            </div>
+
+            <div>
+              <label
+                for="webinarDateTime"
+                class="block text-sm font-medium text-remax-dark-gray mb-1"
+                >Date & Time</label
+              >
+              <input
+                type="datetime-local"
+                id="webinarDateTime"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-remax-blue focus:border-transparent"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label
+                  for="webinarDuration"
+                  class="block text-sm font-medium text-remax-dark-gray mb-1"
+                  >Duration (min)</label
+                >
+                <input
+                  type="number"
+                  id="webinarDuration"
+                  placeholder="Minutes"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-remax-blue focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label
+                  for="hostName"
+                  class="block text-sm font-medium text-remax-dark-gray mb-1"
+                  >Host</label
+                >
+                <input
+                  type="text"
+                  id="hostName"
+                  placeholder="Host name"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-remax-blue focus:border-transparent"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label
+                  for="webinarRegistrants"
+                  class="block text-sm font-medium text-remax-dark-gray mb-1"
+                  >Registrants</label
+                >
+                <input
+                  type="number"
+                  id="webinarRegistrants"
+                  placeholder="Number"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-remax-blue focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label
+                  for="webinarAttendees"
+                  class="block text-sm font-medium text-remax-dark-gray mb-1"
+                  >Attendees</label
+                >
+                <input
+                  type="number"
+                  id="webinarAttendees"
+                  placeholder="Number"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-remax-blue focus:border-transparent"
+                />
+              </div>
+            </div>
+
             <button
               type="submit"
-              class="w-full bg-remax-blue text-white py-2 px-4 rounded-md hover:bg-remax-dark-blue transition"
+              class="w-full bg-remax-blue text-white py-2 px-4 rounded-md hover:bg-remax-collection-blue transition font-medium shadow-md"
             >
               Save Webinar
             </button>
@@ -89,50 +189,89 @@
         </div>
 
         <!-- Webinar List & Summary -->
-        <div class="bg-white mb-5 p-6 rounded-lg shadow-md md:col-span-2">
+        <div
+          class="bg-white p-6 rounded-lg shadow-md lg:col-span-3 border-t-4 border-remax-red"
+        >
           <!-- Monthly Summary -->
-          <div class="mt-6 p-4 bg-remax-light-gray rounded-md">
-            <h3 class="font-semibold text-remax-dark-blue mb-2">
-              Monthly Summary
+          <div class="mt-8">
+            <h3
+              class="font-semibold text-lg text-remax-hub-blue mb-4 pb-2 border-b border-gray-200"
+            >
+              Webinar Insights
             </h3>
             <div
               id="summaryStats"
-              class="grid grid-cols-2 md:grid-cols-4 gap-4"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
             ></div>
           </div>
-          <div class="flex mt-5 justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold text-remax-dark-blue">
+          <div
+            class="flex mt-5 flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4"
+          >
+            <h2 class="text-xl font-semibold text-remax-hub-blue">
               Your Webinars
             </h2>
-            <div class="flex space-x-2">
-              <select id="monthFilter" class="px-3 py-1 border rounded-md">
+            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <select
+                id="monthFilter"
+                class="px-4 py-2 border rounded-md focus:ring-2 focus:ring-remax-blue focus:border-transparent text-sm"
+              >
                 <option value="">All Months</option>
               </select>
               <button
                 id="generateReport"
-                class="bg-remax-blue text-white py-1 px-3 rounded-md hover:bg-remax-dark-blue transition"
+                class="bg-remax-blue text-white py-2 px-4 rounded-md hover:bg-remax-collection-blue transition font-medium text-sm shadow-md whitespace-nowrap"
               >
-                Monthly Report
+                Generate Monthly Report
               </button>
             </div>
           </div>
 
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-remax-light-gray">
-              <tr>
-                <th class="px-4 py-2 text-left">Name</th>
-                <th class="px-4 py-2 text-left">Date</th>
-                <th class="px-4 py-2 text-left">Duration</th>
-                <th class="px-4 py-2 text-left">Registrants</th>
-                <th class="px-4 py-2 text-left">Attendees</th>
-                <th class="px-4 py-2 text-left">Host</th>
-                <th class="px-4 py-2 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="webinarList" class="divide-y divide-gray-200">
-              <!-- Webinars will be listed here -->
-            </tbody>
-          </table>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-remax-hub-blue">
+                <tr>
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Name
+                  </th>
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Date
+                  </th>
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Duration
+                  </th>
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Registrants
+                  </th>
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Attendees
+                  </th>
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Host
+                  </th>
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="webinarList" class="divide-y divide-gray-200">
+                <!-- Webinars will be listed here -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -143,30 +282,33 @@
       class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50"
     >
       <div
-        class="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        class="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-xl"
       >
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-semibold text-remax-dark-blue">
-            Monthly Report
-          </h2>
+        <div
+          class="flex justify-between items-center mb-6 pb-2 border-b border-gray-200"
+        >
+          <div>
+            <h2 class="text-2xl font-bold text-remax-blue">Monthly Report</h2>
+            <p class="text-sm text-remax-dark-gray" id="reportMonth"></p>
+          </div>
           <button
             id="closeModal"
-            class="text-remax-dark-gray hover:text-remax-blue"
+            class="text-remax-dark-gray hover:text-remax-blue text-2xl"
           >
-            ✕
+            &times;
           </button>
         </div>
-        <div id="reportContent"></div>
-        <div class="mt-4 flex justify-end space-x-2">
+        <div id="reportContent" class="space-y-4"></div>
+        <div class="mt-6 flex justify-end space-x-3">
           <button
             id="printReport"
-            class="bg-remax-blue text-white py-1 px-3 rounded-md"
+            class="bg-white border border-remax-blue text-remax-blue py-2 px-4 rounded-md hover:bg-remax-light-gray transition font-medium"
           >
             Print Report
           </button>
           <button
             id="exportReport"
-            class="bg-remax-dark-blue text-white py-1 px-3 rounded-md"
+            class="bg-remax-blue text-white py-2 px-4 rounded-md hover:bg-remax-collection-blue transition font-medium"
           >
             Export to CSV
           </button>
@@ -190,6 +332,7 @@
         const reportModal = document.getElementById('reportModal');
         const closeModal = document.getElementById('closeModal');
         const reportContent = document.getElementById('reportContent');
+        const reportMonth = document.getElementById('reportMonth');
         const printReport = document.getElementById('printReport');
         const exportReport = document.getElementById('exportReport');
         let webinars = [];
@@ -226,25 +369,59 @@
             : webinars;
 
           if (filtered.length === 0) {
-            webinarList.innerHTML = `<tr><td colspan="6" class="text-center py-2 text-remax-dark-gray">No webinars found</td></tr>`;
+            webinarList.innerHTML = `
+              <tr>
+                <td colspan="7" class="text-center py-6 text-remax-dark-gray">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p class="mt-2">No webinars found</p>
+                </td>
+              </tr>`;
             return;
           }
 
           filtered.forEach((w) => {
             const date = new Date(w.date_time);
+            const attendanceRate = w.registrants
+              ? Math.round((w.attendees / w.registrants) * 100)
+              : 0;
+
             const row = document.createElement('tr');
+            row.className = 'hover:bg-remax-light-gray transition';
             row.innerHTML = `
-            <td class="px-4 py-2">${w.name}</td>
-            <td class="px-4 py-2">${date.toLocaleDateString()} ${date.toLocaleTimeString(
-              [],
-              { hour: '2-digit', minute: '2-digit' }
-            )}</td>
-            <td class="px-4 py-2">${w.duration} min</td>
-            <td class="px-4 py-2">${w.registrants}</td>
-            <td class="px-4 py-2">${w.attendees}</td>
-            <td class="px-4 py-2"><button onclick="deleteWebinar('${
-              w.id
-            }')" class="text-red-500 hover:text-red-700">Delete</button></td>`;
+              <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-remax-hub-blue">${
+                w.name
+              }</td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
+                ${date.toLocaleDateString()} 
+                <span class="text-xs text-gray-500">${date.toLocaleTimeString(
+                  [],
+                  { hour: '2-digit', minute: '2-digit' }
+                )}</span>
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
+                w.duration
+              } min</td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
+                w.registrants
+              }</td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
+                ${w.attendees} 
+                <span class="text-xs ${
+                  attendanceRate >= 50 ? 'text-green-600' : 'text-remax-red'
+                }">(${attendanceRate}%)</span>
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
+                w.host
+              }</td>
+              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
+                <button onclick="deleteWebinar('${
+                  w.id
+                }')" class="text-remax-red hover:text-red-700 font-medium">
+                  Delete
+                </button>
+              </td>`;
             webinarList.appendChild(row);
           });
         }
@@ -259,7 +436,8 @@
                 })
               )
             ),
-          ].sort();
+          ].sort((a, b) => new Date(b) - new Date(a));
+
           monthFilter.innerHTML = '<option value="">All Months</option>';
           months.forEach((m) => {
             const opt = document.createElement('option');
@@ -298,15 +476,110 @@
             : 0;
 
           summaryStats.innerHTML = `
-          <div class="bg-white p-3 rounded-md shadow"><h4>Total Webinars</h4><p class="text-2xl font-bold">${totalWebinars}</p></div>
-          <div class="bg-white p-3 rounded-md shadow"><h4>Total Duration</h4><p class="text-2xl font-bold">${totalDuration} min</p></div>
-          <div class="bg-white p-3 rounded-md shadow"><h4>Total Attendees</h4><p class="text-2xl font-bold">${totalAttendees}</p></div>
-          <div class="bg-white p-3 rounded-md shadow"><h4>Attendance Rate</h4><p class="text-2xl font-bold">${attendanceRate}%</p></div>
-        `;
+            <!-- Webinars Card -->
+            <div class="bg-gradient-to-br from-remax-collection-blue to-remax-hub-blue p-4 sm:p-5 rounded-xl shadow-lg text-white">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-xs sm:text-sm font-medium opacity-80">Total Webinars</p>
+                  <p class="text-2xl sm:text-3xl font-bold mt-1">${totalWebinars}</p>
+                </div>
+                <div class="bg-white/10 p-1 sm:p-2 rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+              </div>
+              <p class="text-xs mt-2 sm:mt-3 opacity-80 flex items-center">
+                <span class="inline-block w-2 h-2 bg-green-400 rounded-full mr-1"></span>
+                ${totalWebinars > 0 ? 'Active' : 'No'} training sessions
+              </p>
+            </div>
+
+            <!-- Duration Card -->
+            <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-4 sm:p-5 rounded-xl shadow-lg text-white">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-xs sm:text-sm font-medium opacity-80">Total Duration</p>
+                  <p class="text-2xl sm:text-3xl font-bold mt-1">${totalDuration}</p>
+                  <p class="text-xs opacity-80">minutes</p>
+                </div>
+                <div class="bg-white/10 p-1 sm:p-2 rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              <p class="text-xs mt-2 sm:mt-3 opacity-80">
+                Avg. ${
+                  totalWebinars > 0
+                    ? Math.round(totalDuration / totalWebinars)
+                    : 0
+                } min/session
+              </p>
+            </div>
+
+            <!-- Attendees Card -->
+            <div class="bg-gradient-to-br from-remax-blue to-blue-600 p-4 sm:p-5 rounded-xl shadow-lg text-white">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-xs sm:text-sm font-medium opacity-80">Total Attendees</p>
+                  <p class="text-2xl sm:text-3xl font-bold mt-1">${totalAttendees}</p>
+                </div>
+                <div class="bg-white/10 p-1 sm:p-2 rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+              </div>
+              <p class="text-xs mt-2 sm:mt-3 opacity-80">
+                ${
+                  totalWebinars > 0
+                    ? Math.round(totalAttendees / totalWebinars)
+                    : 0
+                } avg. per session
+              </p>
+            </div>
+
+            <!-- Attendance Rate Card -->
+            <div class="bg-gradient-to-br ${
+              attendanceRate >= 50
+                ? 'from-green-600 to-green-800'
+                : 'from-remax-red to-red-600'
+            } p-4 sm:p-5 rounded-xl shadow-lg text-white">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-xs sm:text-sm font-medium opacity-80">Attendance Rate</p>
+                  <p class="text-2xl sm:text-3xl font-bold mt-1">${attendanceRate}%</p>
+                </div>
+                <div class="bg-white/10 p-1 sm:p-2 rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+              </div>
+              <p class="text-xs mt-2 sm:mt-3 opacity-80 flex items-center">
+                <span class="inline-block w-2 h-2 ${
+                  attendanceRate >= 50 ? 'bg-green-300' : 'bg-red-300'
+                } rounded-full mr-1"></span>
+                ${attendanceRate >= 50 ? 'Above' : 'Below'} target threshold
+              </p>
+            </div>
+          `;
         }
 
         webinarForm.addEventListener('submit', async (e) => {
           e.preventDefault();
+          const submitBtn = webinarForm.querySelector('button[type="submit"]');
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = `
+            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Saving...
+          `;
+
           const webinar = {
             name: webinarForm.webinarName.value,
             date_time: webinarForm.webinarDateTime.value,
@@ -315,14 +588,30 @@
             host: webinarForm.hostName.value,
             attendees: parseInt(webinarForm.webinarAttendees.value),
           };
+
           const { error } = await supabase.from('webinars').insert([webinar]);
-          if (error) return alert('Error: ' + error.message);
+
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Save Webinar';
+
+          if (error) {
+            alert('Error: ' + error.message);
+            return;
+          }
+
           webinarForm.reset();
           init();
         });
 
         window.deleteWebinar = async (id) => {
-          await supabase.from('webinars').delete().eq('id', id);
+          if (!confirm('Are you sure you want to delete this webinar?')) return;
+
+          const { error } = await supabase
+            .from('webinars')
+            .delete()
+            .eq('id', id);
+          if (error) return alert('Error: ' + error.message);
+
           init();
         };
 
@@ -335,6 +624,7 @@
         generateReport.addEventListener('click', () => {
           const month = monthFilter.value;
           if (!month) return alert('Please select a month');
+
           const filtered = webinars.filter(
             (w) =>
               new Date(w.date_time).toLocaleString('default', {
@@ -342,11 +632,105 @@
                 year: 'numeric',
               }) === month
           );
+
           if (!filtered.length) return alert('No data for this month');
-          let html = `<h3 class="text-xl font-semibold text-remax-dark-blue mb-2">${month} Report</h3>`;
+
+          let html = `
+            <div class="mb-6">
+              <h3 class="text-xl font-bold text-remax-blue mb-2">${month} Webinar Report</h3>
+              <div class="bg-remax-light-gray p-4 rounded-lg">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div>
+                    <p class="text-sm text-remax-dark-gray">Total Webinars</p>
+                    <p class="text-lg font-bold">${filtered.length}</p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-remax-dark-gray">Total Duration</p>
+                    <p class="text-lg font-bold">${filtered.reduce(
+                      (sum, w) => sum + w.duration,
+                      0
+                    )} min</p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-remax-dark-gray">Total Attendees</p>
+                    <p class="text-lg font-bold">${filtered.reduce(
+                      (sum, w) => sum + w.attendees,
+                      0
+                    )}</p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-remax-dark-gray">Attendance Rate</p>
+                    <p class="text-lg font-bold">
+                      ${
+                        filtered.reduce((sum, w) => sum + w.registrants, 0)
+                          ? Math.round(
+                              (filtered.reduce(
+                                (sum, w) => sum + w.attendees,
+                                0
+                              ) /
+                                filtered.reduce(
+                                  (sum, w) => sum + w.registrants,
+                                  0
+                                )) *
+                                100
+                            )
+                          : 0
+                      }%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h4 class="font-semibold text-remax-hub-blue mb-3 pb-2 border-b border-gray-200">Webinar Details</h4>
+            <div class="space-y-4">
+          `;
+
           filtered.forEach((w) => {
-            html += `<p>${w.name}: ${w.attendees} attendees (${w.duration} min)</p>`;
+            const date = new Date(w.date_time);
+            const attendanceRate = w.registrants
+              ? Math.round((w.attendees / w.registrants) * 100)
+              : 0;
+
+            html += `
+              <div class="bg-remax-light-gray p-4 rounded-lg">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <h5 class="font-medium text-remax-blue">${w.name}</h5>
+                    <p class="text-sm text-remax-dark-gray">
+                      ${date.toLocaleDateString()} • 
+                      ${date.toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })} • 
+                      ${w.duration} min
+                    </p>
+                  </div>
+                  <span class="text-sm font-medium ${
+                    attendanceRate >= 50 ? 'text-green-600' : 'text-remax-red'
+                  }">
+                    ${attendanceRate}% attendance
+                  </span>
+                </div>
+                <div class="mt-2 grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <p class="text-remax-dark-gray">Host</p>
+                    <p>${w.host}</p>
+                  </div>
+                  <div>
+                    <p class="text-remax-dark-gray">Registrants</p>
+                    <p>${w.registrants}</p>
+                  </div>
+                  <div>
+                    <p class="text-remax-dark-gray">Attendees</p>
+                    <p>${w.attendees}</p>
+                  </div>
+                </div>
+              </div>
+            `;
           });
+
+          html += `</div>`;
+          reportMonth.textContent = month;
           reportContent.innerHTML = html;
           reportModal.classList.remove('hidden');
         });
@@ -355,27 +739,65 @@
           reportModal.classList.add('hidden');
         });
 
-        printReport.addEventListener('click', () => window.print());
+        printReport.addEventListener('click', () => {
+          const printContent = reportContent.innerHTML;
+          const originalContent = document.body.innerHTML;
+
+          document.body.innerHTML = `
+            <div class="p-6">
+              <div class="flex items-center mb-4">
+                <img src="https://www.remax.co.za/_next/image?url=%2Fremax_logo.png&w=256&q=75" alt="RE/MAX Logo" class="h-10 mr-4">
+                <h1 class="text-xl font-bold text-remax-blue">Webinar Report</h1>
+              </div>
+              ${printContent}
+            </div>
+          `;
+
+          window.print();
+          document.body.innerHTML = originalContent;
+          reportModal.classList.remove('hidden');
+        });
 
         exportReport.addEventListener('click', () => {
           const rows = [
-            ['Name', 'Date', 'Duration', 'Registrants', 'Attendees'],
+            [
+              'Name',
+              'Date',
+              'Time',
+              'Duration',
+              'Host',
+              'Registrants',
+              'Attendees',
+              'Attendance Rate',
+            ],
           ];
+
           webinars.forEach((w) => {
             const date = new Date(w.date_time);
+            const attendanceRate = w.registrants
+              ? Math.round((w.attendees / w.registrants) * 100)
+              : 0;
+
             rows.push([
               w.name,
               date.toLocaleDateString(),
+              date.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              }),
               w.duration,
+              w.host,
               w.registrants,
               w.attendees,
+              `${attendanceRate}%`,
             ]);
           });
+
           const csv = rows.map((r) => r.join(',')).join('\n');
           const blob = new Blob([csv], { type: 'text/csv' });
           const link = document.createElement('a');
           link.href = URL.createObjectURL(blob);
-          link.download = 'webinars.csv';
+          link.download = 'remax_webinars_report.csv';
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
