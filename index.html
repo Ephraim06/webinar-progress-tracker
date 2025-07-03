@@ -260,11 +260,11 @@
                   >
                     Host
                   </th>
-                  <th
+                  <!-- <th
                     class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                   >
                     Actions
-                  </th>
+                  </th> -->
                 </tr>
               </thead>
               <tbody id="webinarList" class="divide-y divide-gray-200">
@@ -394,7 +394,7 @@
                 w.name
               }</td>
               <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
-                ${date.toLocaleDateString()} 
+                ${date.toLocaleDateString()}
                 <span class="text-xs text-gray-500">${date.toLocaleTimeString(
                   [],
                   { hour: '2-digit', minute: '2-digit' }
@@ -407,21 +407,14 @@
                 w.registrants
               }</td>
               <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
-                ${w.attendees} 
+                ${w.attendees}
                 <span class="text-xs ${
                   attendanceRate >= 50 ? 'text-green-600' : 'text-remax-red'
                 }">(${attendanceRate}%)</span>
               </td>
               <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
                 w.host
-              }</td>
-              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
-                <button onclick="deleteWebinar('${
-                  w.id
-                }')" class="text-remax-red hover:text-red-700 font-medium">
-                  Delete
-                </button>
-              </td>`;
+              }</td>`;
             webinarList.appendChild(row);
           });
         }
@@ -615,6 +608,32 @@
           init();
         };
 
+        // Edit webinar handler
+        window.editWebinar = async function (id, updatedData) {
+          try {
+            const { error } = await supabase
+              .from('webinars')
+              .update(updatedData)
+              .eq('id', id);
+
+            if (error) throw error;
+
+            // Update the local webinars array
+            webinars = webinars.map((w) =>
+              w.id === id ? { ...w, ...updatedData } : w
+            );
+
+            renderWebinarList();
+            updateSummaryStats();
+            populateMonthFilter();
+
+            alert('Webinar updated successfully!');
+          } catch (error) {
+            console.error('Error updating webinar:', error);
+            alert('Error updating webinar. Please check console for details.');
+          }
+        };
+
         monthFilter.addEventListener('change', () => {
           const month = monthFilter.value;
           renderWebinarList(month);
@@ -697,11 +716,11 @@
                   <div>
                     <h5 class="font-medium text-remax-blue">${w.name}</h5>
                     <p class="text-sm text-remax-dark-gray">
-                      ${date.toLocaleDateString()} • 
+                      ${date.toLocaleDateString()} •
                       ${date.toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
-                      })} • 
+                      })} •
                       ${w.duration} min
                     </p>
                   </div>

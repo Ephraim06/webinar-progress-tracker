@@ -103,6 +103,32 @@ window.deleteWebinar = async function (id) {
   }
 };
 
+// Edit webinar handler
+window.editWebinar = async function (id, updatedData) {
+  try {
+    const { error } = await supabase
+      .from('webinars')
+      .update(updatedData)
+      .eq('id', id);
+
+    if (error) throw error;
+
+    // Update the local webinars array
+    webinars = webinars.map((w) =>
+      w.id === id ? { ...w, ...updatedData } : w
+    );
+
+    renderWebinarList();
+    updateSummaryStats();
+    populateMonthFilter();
+
+    alert('Webinar updated successfully!');
+  } catch (error) {
+    console.error('Error updating webinar:', error);
+    alert('Error updating webinar. Please check console for details.');
+  }
+};
+
 // Render webinar list
 function renderWebinarList(filterMonth = '') {
   webinarList.innerHTML = '';
@@ -142,6 +168,13 @@ function renderWebinarList(filterMonth = '') {
       <td class="px-4 py-2">${webinar.registrants}</td>
       <td class="px-4 py-2">${webinar.attendees}</td>
       <td class="px-4 py-2">${webinar.host}</td>
+      <td class="px-4 py-2">
+        <button onclick="editWebinar('${
+          webinar.id
+        }')" class="text-green-500 hover:text-green-700">
+          Edit
+        </button>
+      </td>
       <td class="px-4 py-2">
         <button onclick="deleteWebinar('${
           webinar.id
