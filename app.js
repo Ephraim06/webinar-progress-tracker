@@ -21,13 +21,10 @@ async function init() {
   populateMonthFilter();
   updateSummaryStats();
 
-  // Set current date/time as default
-  const now = new Date();
-  const timezoneOffset = now.getTimezoneOffset() * 60000;
-  const localISOTime = new Date(now - timezoneOffset)
-    .toISOString()
-    .slice(0, 16);
-  document.getElementById('webinarDateTime').value = localISOTime;
+  document.getElementById('webinarDateTime').value = webinar.date_time.slice(
+    0,
+    16
+  );
 }
 
 // Load webinars from Supabase

@@ -279,7 +279,7 @@
     <!-- Report Modal -->
     <div
       id="reportModal"
-      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center flex justify-center p-4 z-50"
     >
       <div
         class="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-xl"
@@ -358,31 +358,54 @@
 
         function renderWebinarList(month = '') {
           webinarList.innerHTML = '';
+
           const filtered = month
-            ? webinars.filter(
-                (w) =>
-                  new Date(w.date_time).toLocaleString('default', {
-                    month: 'long',
-                    year: 'numeric',
-                  }) === month
-              )
+            ? webinars.filter((w) => {
+                const dd = new Date(w.date_time);
+                if (isNaN(dd)) return false;
+                // ensure month filter uses UTC so it matches your DB's +00:00
+                const monthYear = dd.toLocaleString('default', {
+                  month: 'long',
+                  year: 'numeric',
+                  timeZone: 'UTC',
+                });
+                return monthYear === month;
+              })
             : webinars;
 
           if (filtered.length === 0) {
             webinarList.innerHTML = `
-              <tr>
-                <td colspan="7" class="text-center py-6 text-remax-dark-gray">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <p class="mt-2">No webinars found</p>
-                </td>
-              </tr>`;
+      <tr>
+        <td colspan="7" class="text-center py-6 text-remax-dark-gray">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="mt-2">No webinars found</p>
+        </td>
+      </tr>`;
             return;
           }
 
           filtered.forEach((w) => {
             const date = new Date(w.date_time);
+            if (isNaN(date)) {
+              console.error('Invalid date:', w.date_time);
+              return;
+            }
+
+            // Format using UTC to match the +00:00 timestamps from the DB
+            const formattedDate =
+              date.getUTCFullYear() +
+              '/' +
+              String(date.getUTCMonth() + 1).padStart(2, '0') +
+              '/' +
+              String(date.getUTCDate()).padStart(2, '0');
+
+            const formattedTime =
+              String(date.getUTCHours()).padStart(2, '0') +
+              ':' +
+              String(date.getUTCMinutes()).padStart(2, '0');
+
             const attendanceRate = w.registrants
               ? Math.round((w.attendees / w.registrants) * 100)
               : 0;
@@ -390,31 +413,28 @@
             const row = document.createElement('tr');
             row.className = 'hover:bg-remax-light-gray transition';
             row.innerHTML = `
-              <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-remax-hub-blue">${
-                w.name
-              }</td>
-              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
-                ${date.toLocaleDateString()}
-                <span class="text-xs text-gray-500">${date.toLocaleTimeString(
-                  [],
-                  { hour: '2-digit', minute: '2-digit' }
-                )}</span>
-              </td>
-              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
-                w.duration
-              } min</td>
-              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
-                w.registrants
-              }</td>
-              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
-                ${w.attendees}
-                <span class="text-xs ${
-                  attendanceRate >= 50 ? 'text-green-600' : 'text-remax-red'
-                }">(${attendanceRate}%)</span>
-              </td>
-              <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
-                w.host
-              }</td>`;
+      <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-remax-hub-blue">${
+        w.name
+      }</td>
+      <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
+        ${formattedDate}
+        <span class="text-xs text-gray-500">${formattedTime}</span>
+      </td>
+      <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
+        w.duration
+      } min</td>
+      <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
+        w.registrants
+      }</td>
+      <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">
+        ${w.attendees}
+        <span class="text-xs ${
+          attendanceRate >= 50 ? 'text-green-600' : 'text-remax-red'
+        }">(${attendanceRate}%)</span>
+      </td>
+      <td class="px-4 py-3 whitespace-nowrap text-sm text-remax-dark-gray">${
+        w.host
+      }</td>`;
             webinarList.appendChild(row);
           });
         }
@@ -538,7 +558,7 @@
             <div class="bg-gradient-to-br ${
               attendanceRate >= 50
                 ? 'from-green-600 to-green-800'
-                : 'from-remax-red to-red-600'
+                : 'from-remax-red to-red-800'
             } p-4 sm:p-5 rounded-xl shadow-lg text-white">
               <div class="flex justify-between items-start">
                 <div>
@@ -588,7 +608,7 @@
           submitBtn.textContent = 'Save Webinar';
 
           if (error) {
-            alert('Error: ' + error.message);
+            showSnackbar('Error: ' + error.message);
             return;
           }
 
@@ -603,7 +623,7 @@
             .from('webinars')
             .delete()
             .eq('id', id);
-          if (error) return alert('Error: ' + error.message);
+          if (error) return showSnackbar('Error: ' + error.message);
 
           init();
         };
@@ -627,10 +647,12 @@
             updateSummaryStats();
             populateMonthFilter();
 
-            alert('Webinar updated successfully!');
+            showSnackbar('Webinar updated successfully!');
           } catch (error) {
             console.error('Error updating webinar:', error);
-            alert('Error updating webinar. Please check console for details.');
+            showSnackbar(
+              'Error updating webinar. Please check console for details.'
+            );
           }
         };
 
@@ -642,7 +664,7 @@
 
         generateReport.addEventListener('click', () => {
           const month = monthFilter.value;
-          if (!month) return alert('Please select a month');
+          if (!month) return showSnackbar('Please select a month');
 
           const filtered = webinars.filter(
             (w) =>
@@ -652,7 +674,7 @@
               }) === month
           );
 
-          if (!filtered.length) return alert('No data for this month');
+          if (!filtered.length) return showSnackbar('No data for this month');
 
           let html = `
             <div class="mb-6">
@@ -824,6 +846,44 @@
 
         init();
       });
+    </script>
+
+    <!-- Snackbar container -->
+    <div id="snackbar" class="fixed top-4 right-4 z-50 hidden">
+      <div
+        id="snackbarMessage"
+        class="bg-red-500 text-white px-4 py-2 rounded shadow-lg"
+      ></div>
+    </div>
+    <!-- Snackbar Script -->
+    <script>
+      function showSnackbar(message, type = 'error') {
+        const snackbar = document.getElementById('snackbar');
+        const msg = document.getElementById('snackbarMessage');
+
+        // Color styles
+        const colors = {
+          error: 'bg-red-500',
+          success: 'bg-green-500',
+          info: 'bg-blue-500',
+          warning: 'bg-yellow-500 text-black',
+        };
+
+        // Reset classes
+        msg.className = `px-4 py-2 rounded shadow-lg ${
+          colors[type] || colors.info
+        }`;
+        msg.textContent = message;
+
+        // Show
+        snackbar.classList.remove('hidden');
+        snackbar.classList.add('opacity-100');
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+          snackbar.classList.add('hidden');
+        }, 3000);
+      }
     </script>
   </body>
 </html>
