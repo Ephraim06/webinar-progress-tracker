@@ -13,4 +13,4 @@ jobs:
         run: |
           curl -s -o /dev/null -w "%{http_code}" \
           -H "apikey: $SUPABASE_ANON_KEY" \
-          "https://<your-project-ref>.supabase.co/rest/v1/"
+          "https://xdrgsibciezpaxxsmatn.supabase.co/rest/v1/"
