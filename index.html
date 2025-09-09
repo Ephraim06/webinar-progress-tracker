@@ -28,8 +28,8 @@
         theme: {
           extend: {
             colors: {
-              'remax-blue': '#003DA5',
-              'remax-red': '#DC1C2E',
+              'remax-blue': '#0B2648',
+              'remax-red': '#DC1B2E',
               'remax-hub-blue': '#1e355e',
               'remax-collection-blue': '#0C2C53',
               'remax-light-gray': '#F5F7FA',
@@ -60,13 +60,13 @@
       <header class="mb-8 flex items-center justify-between">
         <div>
           <div class="flex items-center space-x-4">
-          <img
-              src="https://hub.remax.co.za/images/remax_logo_dark.svg?e85ac3d36384690aba3955874849ed7f"
+            <img
+              src="https://hub.remax.co.za/images/REMAX_Southern_Africa.png"
               alt="RE/MAX Logo"
-              class="h-12"
+              class="h-20"
             />
             <div>
-              <h1 class="text-3xl font-bold text-remax-blue">
+              <h1 class="text-2xl font-bold text-remax-blue">
                 Webinar Analytics Tracker
               </h1>
               <p class="text-remax-dark-gray">
@@ -207,9 +207,7 @@
           <div
             class="flex mt-5 flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4"
           >
-            <h2 class="text-xl font-semibold text-remax-hub-blue">
-              Webinars
-            </h2>
+            <h2 class="text-xl font-semibold text-remax-hub-blue">Webinars</h2>
             <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <select
                 id="monthFilter"
@@ -787,7 +785,7 @@
           document.body.innerHTML = `
             <div class="p-6">
               <div class="flex items-center mb-4">
-                <img src="https://hub.remax.co.za/images/remax_logo_dark.svg&w=256&q=75" alt="RE/MAX Logo" class="h-10 mr-4">
+                <img src="https://hub.remax.co.za/images/REMAX_Southern_Africa.png&w=256&q=75" alt="RE/MAX Logo" class="h-10 mr-4">
                 <h1 class="text-xl font-bold text-remax-blue">Webinar Report</h1>
               </div>
               ${printContent}
@@ -850,10 +848,7 @@
 
     <!-- Snackbar container -->
     <div id="snackbar" class="fixed top-4 right-4 z-50 hidden">
-      <div
-        id="snackbarMessage"
-        class="bg-red-500 text-white px-4 py-2 rounded shadow-lg"
-      ></div>
+      <div id="snackbarMessage" class="px-4 py-2 rounded shadow-lg"></div>
     </div>
     <!-- Snackbar Script -->
     <script>
@@ -863,14 +858,14 @@
 
         // Color styles
         const colors = {
-          error: 'bg-red-500',
+          error: 'bg-blue-800',
           success: 'bg-green-500',
           info: 'bg-blue-500',
-          warning: 'bg-yellow-500 text-black',
+          warning: 'bg-yellow-500 text-white',
         };
 
         // Reset classes
-        msg.className = `px-4 py-2 rounded shadow-lg ${
+        msg.className = `bg-remax-red text-white px-4 py-2 rounded shadow-lg ${
           colors[type] || colors.info
         }`;
         msg.textContent = message;
@@ -887,7 +882,3 @@
     </script>
   </body>
 </html>
-
-
-
-
